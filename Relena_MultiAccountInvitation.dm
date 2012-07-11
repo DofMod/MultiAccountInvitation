@@ -1,11 +1,11 @@
-<module>
+<?xml version="1.0" ?><module>
 
     <!-- Information sur le module -->
     <header>
         <!-- Nom affiché dans la liste des modules -->
         <name>MultiAccountInvitation</name>        
         <!-- Version du module -->
-        <version>1.0</version>
+        <version>1.7</version>
         <!-- Dernière version de dofus pour laquelle ce module fonctionne -->
         <dofusVersion>2.6.0</dofusVersion>
         <!-- Auteur du module -->
@@ -18,9 +18,8 @@
 
     <!-- Liste des interfaces du module, avec nom de l'interface, nom du fichier squelette .xml et nom de la classe script d'interface -->
     <uis>
-		<ui name="invitationui" file="xml/InvitationUi.xml" class="ui::InvitationUi" />
+		<ui class="ui::InvitationUi" file="xml/InvitationUi.xml" name="invitationui"/>
     </uis>
     
     <script>MultiAccountInvitation.swf</script>
-    
 </module>
