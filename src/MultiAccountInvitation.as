@@ -54,6 +54,12 @@ package {
 			sysApi.addHook(GameStart, onGameStart);
 		}
 		
+		public function unload() : void
+		{
+			modMultiAccountManager.unregister(sendIdKey);
+			modMultiAccountManager.unregister(receiveIdKey);
+		}
+		
 		public function getInvitationName() : String
 		{
 			return invitationNames.pop();
