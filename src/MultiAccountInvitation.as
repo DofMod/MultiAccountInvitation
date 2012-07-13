@@ -35,9 +35,9 @@ package {
 		public var modMultiAccountManager : Object;
 		
 		// Constants
-		private const sendIdKey:String = "sendId";
-		private const receiveIdKey:String = "receiveId";
-		private const invitationUiName:String = "invitationui";
+		private const sendIdKey:String = "mai_sendId";
+		private const receiveIdKey:String = "mai_receiveId";
+		private const invitationUiName:String = "mai_invitationui";
 		
 		// Properties
 		private var invitationNames:Array;
