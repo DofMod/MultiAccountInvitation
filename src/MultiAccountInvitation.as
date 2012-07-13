@@ -65,10 +65,6 @@ package {
 			return invitationNames.pop();
 		}
 		
-		//::///////////////////////////////////////////////////////////
-		//::// Private methods
-		//::///////////////////////////////////////////////////////////
-		
 		public function sendId(originIndex:int) : void
 		{
 			modMultiAccountManager.send(
@@ -92,17 +88,9 @@ package {
 			}
 		}
 		
-		private function openCloseUI(uiName:String) : void
-		{
-			if (uiApi.getUi(uiName) == null)
-			{
-				uiApi.loadUi(uiName, uiName, this);
-			}
-			else
-			{
-				uiApi.unloadUi(uiName);
-			}
-		}
+		//::///////////////////////////////////////////////////////////
+		//::// Private methods
+		//::///////////////////////////////////////////////////////////
 			
 		//::///////////////////////////////////////////////////////////
 		//::// Events
