@@ -22,7 +22,7 @@ package ui
 		/**
 		 * @private
 		 */
-		public var sysApi:SystemApi; // sendAction
+		public var sysApi:SystemApi; // log
 		/**
 		 * @private
 		 */
@@ -87,10 +87,7 @@ package ui
 		 */
 		private function sendInvitationRoutine():void
 		{
-			traceDofus("Invitation de " + playerName);
-			sysApi.sendAction(new PartyInvitation(playerName));
-			
-			nextInvitationRoutine();
+			parent.sendInvitation(this.playerName);
 		}
 		
 		/**
@@ -98,7 +95,7 @@ package ui
 		 */
 		private function nextInvitationRoutine():void
 		{
-			playerName = parent.getInvitationName();
+			this.playerName = parent.getInvitationName();
 			
 			if (playerName == null)
 			{
@@ -151,6 +148,7 @@ package ui
 			if (target == btn_ok)
 			{
 				sendInvitationRoutine();
+				nextInvitationRoutine();
 			}
 			else if (target == btn_no)
 			{

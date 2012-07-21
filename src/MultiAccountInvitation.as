@@ -34,7 +34,7 @@ package
 		/**
 		 * @private
 		 */
-		public var sysApi:SystemApi; // Hooks, Actions
+		public var sysApi:SystemApi; // addHooks, sendActions
 		/**
 		 * @private
 		 */
@@ -95,6 +95,16 @@ package
 		public function getInvitationName():String
 		{
 			return invitationNames.pop();
+		}
+		
+		/**
+		 * Send PartyInvitation action.
+		 * 
+		 * @return A character's pseudo
+		 */
+		public function sendInvitation(playerName:String):void
+		{
+			sysApi.sendAction(new PartyInvitation(playerName))
 		}
 		
 		/**
