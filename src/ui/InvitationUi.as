@@ -1,4 +1,4 @@
-package ui 
+package ui
 {
 	import d2actions.PartyInvitation;
 	import d2api.SystemApi;
@@ -6,11 +6,12 @@ package ui
 	import d2components.ButtonContainer;
 	import d2components.GraphicContainer;
 	import d2components.Label;
+	
 	/**
 	 * ...
 	 * @author Relena
 	 */
-	public class InvitationUi 
+	public class InvitationUi
 	{
 		//::///////////////////////////////////////////////////////////
 		//::// Properties 
@@ -20,21 +21,21 @@ package ui
 		public var sysApi:SystemApi; // sendAction
 		public var uiApi:UiApi; // addComponentHook, addShortcutHook
 		
-        // Components 
-        public var lbl_pseudo:Label;
-        public var btn_ok:ButtonContainer;
-        public var btn_no:ButtonContainer;
+		// Components 
+		public var lbl_pseudo:Label;
+		public var btn_ok:ButtonContainer;
+		public var btn_no:ButtonContainer;
 		
 		// Properties
 		private var parent:MultiAccountInvitation;
 		private var playerName:String;
 		
-        //::///////////////////////////////////////////////////////////
-        //::// Methods
-        //::///////////////////////////////////////////////////////////
+		//::///////////////////////////////////////////////////////////
+		//::// Methods
+		//::///////////////////////////////////////////////////////////
 		
-		public function main(params:Object) : void 
-        {
+		public function main(params:Object):void
+		{
 			parent = params as MultiAccountInvitation;
 			
 			playerName = parent.getInvitationName();
@@ -45,19 +46,19 @@ package ui
 			}
 			
 			lbl_pseudo.text = playerName;
-            
+			
 			uiApi.addComponentHook(btn_ok, "onRelease");
-            uiApi.addComponentHook(btn_no, "onRelease");
+			uiApi.addComponentHook(btn_no, "onRelease");
 			
 			uiApi.addShortcutHook("validUi", onShortcut);
 			uiApi.addShortcutHook("closeUi", onShortcut);
-        } 
-         
-        public function unload() : void 
-        { 
-        }
+		}
 		
-		private function sendInvitationRoutine() : void
+		public function unload():void
+		{
+		}
+		
+		private function sendInvitationRoutine():void
 		{
 			traceDofus("Invitation de " + playerName);
 			sysApi.sendAction(new PartyInvitation(playerName));
@@ -65,7 +66,7 @@ package ui
 			nextInvitationRoutine();
 		}
 		
-		private function nextInvitationRoutine() : void
+		private function nextInvitationRoutine():void
 		{
 			playerName = parent.getInvitationName();
 			
@@ -80,10 +81,10 @@ package ui
 		}
 		
 		//::///////////////////////////////////////////////////////////
-        //::// Events 
-        //::///////////////////////////////////////////////////////////
+		//::// Events 
+		//::///////////////////////////////////////////////////////////
 		
-		public function onShortcut(name:String) : Boolean
+		public function onShortcut(name:String):Boolean
 		{
 			if (name == "validUi")
 			{
@@ -101,7 +102,7 @@ package ui
 			return false;
 		}
 		
-		public function onRelease(target:Object) : void
+		public function onRelease(target:Object):void
 		{
 			if (target == btn_ok)
 			{
@@ -117,10 +118,9 @@ package ui
 		//::// Debug
 		//::///////////////////////////////////////////////////////////
 		
-		private function traceDofus(str:String) : void
+		private function traceDofus(str:String):void
 		{
 			sysApi.log(2, str);
 		}
 	}
-
 }
