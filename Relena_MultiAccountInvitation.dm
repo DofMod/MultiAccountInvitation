@@ -5,7 +5,7 @@
         <!-- Nom affiché dans la liste des modules -->
         <name>MultiAccountInvitation</name>        
         <!-- Version du module -->
-        <version>1.10</version>
+        <version>1.16</version>
         <!-- Dernière version de dofus pour laquelle ce module fonctionne -->
         <dofusVersion>2.6.0</dofusVersion>
         <!-- Auteur du module -->
