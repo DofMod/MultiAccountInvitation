@@ -30,7 +30,7 @@ package ui
 		private var playerName:String;
 		
         //::///////////////////////////////////////////////////////////
-        //::// Public methods
+        //::// Methods
         //::///////////////////////////////////////////////////////////
 		
 		public function main(params:Object) : void 
@@ -55,11 +55,7 @@ package ui
          
         public function unload() : void 
         { 
-        } 
-		
-        //::///////////////////////////////////////////////////////////
-        //::// Private methods
-        //::///////////////////////////////////////////////////////////
+        }
 		
 		private function sendInvitationRoutine() : void
 		{
