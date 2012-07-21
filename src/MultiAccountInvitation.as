@@ -37,7 +37,7 @@ package {
 		// Constants
 		private const sendIdKey:String = "mai_sendId";
 		private const receiveIdKey:String = "mai_receiveId";
-		private const invitationUiName:String = "mai_invitationui";
+		private const invitationUiName:String = "invitationui";
 		
 		// Properties
 		private var invitationNames:Array;
