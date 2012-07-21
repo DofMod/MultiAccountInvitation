@@ -56,8 +56,8 @@ package {
 		
 		public function unload() : void
 		{
-			modMultiAccountManager.unregister(sendIdKey);
-			modMultiAccountManager.unregister(receiveIdKey);
+			//modMultiAccountManager.unregister(sendIdKey);
+			//modMultiAccountManager.unregister(receiveIdKey);
 		}
 		
 		public function getInvitationName() : String
