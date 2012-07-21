@@ -16,6 +16,11 @@ package
 	import flash.utils.Dictionary;
 	import ui.InvitationUi;
 	
+	/**
+	 * The main class of the module. Manage multi accounts invitations.
+	 * 
+	 * @author	Relena
+	 */
 	public class MultiAccountInvitation extends Sprite
 	{
 		//::///////////////////////////////////////////////////////////
@@ -26,13 +31,28 @@ package
 		private static var linkages:Array = [InvitationUi];
 		
 		// APIs
+		/**
+		 * @private
+		 */
 		public var sysApi:SystemApi; // Hooks, Actions
+		/**
+		 * @private
+		 */
 		public var playerApi:PlayedCharacterApi; // Player name
+		/**
+		 * @private
+		 */
 		public var partyApi:PartyApi; // isInParty
+		/**
+		 * @private
+		 */
 		public var uiApi:UiApi; // loadUi
 		
 		// Components
-		[Module(name="MultiAccountManager")]
+		[Module(name = "MultiAccountManager")]
+		/**
+		 * MultiAccountManager module reference.
+		 */
 		public var modMultiAccountManager:Object;
 		
 		// Constants
@@ -47,6 +67,9 @@ package
 		//::// Methods
 		//::///////////////////////////////////////////////////////////
 		
+		/**
+		 * Initialize the module.
+		 */
 		public function main():void
 		{
 			invitationNames = new Array();
@@ -55,17 +78,34 @@ package
 			sysApi.addHook(GameStart, onGameStart);
 		}
 		
+		/**
+		 * Uninitialize the module.
+		 */
 		public function unload():void
 		{
 			//modMultiAccountManager.unregister(sendIdKey);
 			//modMultiAccountManager.unregister(receiveIdKey);
 		}
 		
+		/**
+		 * Return the pseudo of a character who can be invited.
+		 * 
+		 * @return A character's pseudo
+		 */
 		public function getInvitationName():String
 		{
 			return invitationNames.pop();
 		}
 		
+		/**
+		 * Call the <code>receiveId</code> function of the account with
+		 * <code>originIndex</code> index with player Id and player Name
+		 * parameters.
+		 * 
+		 * @param	originIndex	The index of an account.
+		 * 
+		 * @private
+		 */
 		public function sendId(originIndex:int):void
 		{
 			modMultiAccountManager.send(
@@ -75,6 +115,15 @@ package
 				playerApi.getPlayedCharacterInfo().name);
 		}
 		
+		/**
+		 * Open invitation request popup
+		 * (for <code>playerName</code> character).
+		 * 
+		 * @param	playerId	Id of the character.
+		 * @param	playerName	Name of the character.
+		 * 
+		 * @private
+		 */
 		public function receiveId(playerId:uint, playerName:String):void
 		{
 			if (partyApi.isInParty(playerId))
@@ -92,15 +141,24 @@ package
 		//::// Events
 		//::///////////////////////////////////////////////////////////
 		
-		public function onGameStart():void
+		/**
+		 * GameStart event callback. Register function keys.
+		 */
+		private function onGameStart():void
 		{
 			modMultiAccountManager.register(sendIdKey, this.sendId);
 			modMultiAccountManager.register(receiveIdKey, this.receiveId);
 		}
 		
-		public function onChatSendPreInit(string:String, arg1:Object):void
+		/**
+		 * ChatSendPreInit event callback. Intercept /invitemulti command.
+		 * 
+		 * @param	message	Message sent.
+		 * @param	objects	Linked objects list.
+		 */
+		private function onChatSendPreInit(message:String, objects:Object):void
 		{
-			if (string == "/invitemulti")
+			if (message == "/invitemulti")
 			{
 				modMultiAccountManager.sendOther(
 					sendIdKey,
@@ -112,6 +170,11 @@ package
 		//::// Debug
 		//::///////////////////////////////////////////////////////////
 		
+		/**
+		 * Log message.
+		 *
+		 * @param	str	The string to display.
+		 */
 		private function traceDofus(str:String):void
 		{
 			sysApi.log(2, str);

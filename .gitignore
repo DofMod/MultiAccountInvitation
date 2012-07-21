@@ -2,6 +2,7 @@
 ## FlashDevelop
 #################
 *.as3proj
+*.docproj
 
 #################
 ## Eclipse
@@ -175,4 +176,5 @@ pip-log.txt
 #############
 
 libs/
+doc/
 MultiAccountInvitation.swf

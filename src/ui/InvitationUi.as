@@ -8,7 +8,8 @@ package ui
 	import d2components.Label;
 	
 	/**
-	 * ...
+	 * Invitation popup.
+	 *
 	 * @author Relena
 	 */
 	public class InvitationUi
@@ -18,12 +19,27 @@ package ui
 		//::///////////////////////////////////////////////////////////
 		
 		// APIs
+		/**
+		 * @private
+		 */
 		public var sysApi:SystemApi; // sendAction
+		/**
+		 * @private
+		 */
 		public var uiApi:UiApi; // addComponentHook, addShortcutHook
 		
-		// Components 
+		// Components
+		/**
+		 * @private
+		 */
 		public var lbl_pseudo:Label;
+		/**
+		 * @private
+		 */
 		public var btn_ok:ButtonContainer;
+		/**
+		 * @private
+		 */
 		public var btn_no:ButtonContainer;
 		
 		// Properties
@@ -34,6 +50,11 @@ package ui
 		//::// Methods
 		//::///////////////////////////////////////////////////////////
 		
+		/**
+		 * Initialize the UI.
+		 *
+		 * @param	params	Divers parameters.
+		 */
 		public function main(params:Object):void
 		{
 			parent = params as MultiAccountInvitation;
@@ -54,10 +75,16 @@ package ui
 			uiApi.addShortcutHook("closeUi", onShortcut);
 		}
 		
+		/**
+		 * Uninitialize the UI.
+		 */
 		public function unload():void
 		{
 		}
 		
+		/**
+		 * Send PartyInvitation action.
+		 */
 		private function sendInvitationRoutine():void
 		{
 			traceDofus("Invitation de " + playerName);
@@ -66,6 +93,9 @@ package ui
 			nextInvitationRoutine();
 		}
 		
+		/**
+		 * Load next player's name.
+		 */
 		private function nextInvitationRoutine():void
 		{
 			playerName = parent.getInvitationName();
@@ -84,7 +114,14 @@ package ui
 		//::// Events 
 		//::///////////////////////////////////////////////////////////
 		
-		public function onShortcut(name:String):Boolean
+		/**
+		 * Shortcut event callback.
+		 *
+		 * @param	name	Shortcut's name.
+		 *
+		 * @return	True if shortcut handled, False else.
+		 */
+		private function onShortcut(name:String):Boolean
 		{
 			if (name == "validUi")
 			{
@@ -102,6 +139,13 @@ package ui
 			return false;
 		}
 		
+		/**
+		 * Release event callback.
+		 *
+		 * @param	target	Released button.
+		 * 
+		 * @private
+		 */
 		public function onRelease(target:Object):void
 		{
 			if (target == btn_ok)
@@ -118,6 +162,11 @@ package ui
 		//::// Debug
 		//::///////////////////////////////////////////////////////////
 		
+		/**
+		 * Log message.
+		 *
+		 * @param	str	The string to display.
+		 */
 		private function traceDofus(str:String):void
 		{
 			sysApi.log(2, str);
