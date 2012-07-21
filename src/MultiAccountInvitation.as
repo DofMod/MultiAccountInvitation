@@ -1,4 +1,5 @@
-package {
+package
+{
 	import d2actions.ChatTextOutput;
 	import d2actions.PartyInvitation;
 	import d2api.PartyApi;
@@ -14,7 +15,7 @@ package {
 	import flash.net.LocalConnection;
 	import flash.utils.Dictionary;
 	import ui.InvitationUi;
-
+	
 	public class MultiAccountInvitation extends Sprite
 	{
 		//::///////////////////////////////////////////////////////////
@@ -31,8 +32,8 @@ package {
 		public var uiApi:UiApi; // loadUi
 		
 		// Components
-		[Module (name="MultiAccountManager")]
-		public var modMultiAccountManager : Object;
+		[Module(name="MultiAccountManager")]
+		public var modMultiAccountManager:Object;
 		
 		// Constants
 		private const sendIdKey:String = "mai_sendId";
@@ -45,8 +46,8 @@ package {
 		//::///////////////////////////////////////////////////////////
 		//::// Methods
 		//::///////////////////////////////////////////////////////////
-
-		public function main() : void
+		
+		public function main():void
 		{
 			invitationNames = new Array();
 			
@@ -54,32 +55,31 @@ package {
 			sysApi.addHook(GameStart, onGameStart);
 		}
 		
-		public function unload() : void
+		public function unload():void
 		{
 			//modMultiAccountManager.unregister(sendIdKey);
 			//modMultiAccountManager.unregister(receiveIdKey);
 		}
 		
-		public function getInvitationName() : String
+		public function getInvitationName():String
 		{
 			return invitationNames.pop();
 		}
 		
-		public function sendId(originIndex:int) : void
+		public function sendId(originIndex:int):void
 		{
 			modMultiAccountManager.send(
-					originIndex,
-					receiveIdKey,
-					playerApi.getPlayedCharacterInfo().id,
-					playerApi.getPlayedCharacterInfo().name
-					);
+				originIndex,
+				receiveIdKey,
+				playerApi.getPlayedCharacterInfo().id,
+				playerApi.getPlayedCharacterInfo().name);
 		}
 		
-		public function receiveId(playerId:uint, playerName:String) : void
+		public function receiveId(playerId:uint, playerName:String):void
 		{
 			if (partyApi.isInParty(playerId))
 				return;
-
+			
 			invitationNames.push(playerName);
 			
 			if (uiApi.getUi(invitationUiName) == null)
@@ -87,25 +87,24 @@ package {
 				uiApi.loadUi(invitationUiName, invitationUiName, this);
 			}
 		}
-			
+		
 		//::///////////////////////////////////////////////////////////
 		//::// Events
 		//::///////////////////////////////////////////////////////////
 		
-		public function onGameStart() : void
+		public function onGameStart():void
 		{
 			modMultiAccountManager.register(sendIdKey, this.sendId);
 			modMultiAccountManager.register(receiveIdKey, this.receiveId);
 		}
 		
-		public function onChatSendPreInit(string:String, arg1:Object) : void
+		public function onChatSendPreInit(string:String, arg1:Object):void
 		{
 			if (string == "/invitemulti")
-			{				
+			{
 				modMultiAccountManager.sendOther(
-						sendIdKey,
-						modMultiAccountManager.getIndex()
-						);
+					sendIdKey,
+					modMultiAccountManager.getIndex());
 			}
 		}
 		
@@ -113,7 +112,7 @@ package {
 		//::// Debug
 		//::///////////////////////////////////////////////////////////
 		
-		private function traceDofus(str:String) : void
+		private function traceDofus(str:String):void
 		{
 			sysApi.log(2, str);
 		}
