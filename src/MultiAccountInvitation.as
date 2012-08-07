@@ -1,20 +1,13 @@
 package
 {
-	import d2actions.ChatTextOutput;
 	import d2actions.PartyInvitation;
 	import d2api.PartyApi;
 	import d2api.PlayedCharacterApi;
 	import d2api.SystemApi;
 	import d2api.UiApi;
-	import d2enums.ChatChannelsMultiEnum;
-	import d2hooks.ChatError;
 	import d2hooks.ChatSendPreInit;
 	import d2hooks.GameStart;
 	import flash.display.Sprite;
-	import flash.events.StatusEvent;
-	import flash.net.LocalConnection;
-	import flash.utils.Dictionary;
-	import ui.InvitationUi;
 	
 	/**
 	 * The main class of the module. Manage multi accounts invitations.
@@ -26,9 +19,6 @@ package
 		//::///////////////////////////////////////////////////////////
 		//::// Properties
 		//::///////////////////////////////////////////////////////////
-		
-		// Force include
-		private static var linkages:Array = [InvitationUi];
 		
 		// APIs
 		/**
@@ -55,13 +45,15 @@ package
 		 */
 		public var modMultiAccountManager:Object;
 		
+		[Module(name = "Ankama_Common")]
+		/**
+		 * Ankama_Common module reference.
+		 */
+		public var modCommon:Object;
+		
 		// Constants
 		private const sendIdKey:String = "mai_sendId";
 		private const receiveIdKey:String = "mai_receiveId";
-		private const invitationUiName:String = "invitationui";
-		
-		// Properties
-		private var invitationNames:Array;
 		
 		//::///////////////////////////////////////////////////////////
 		//::// Methods
@@ -72,8 +64,6 @@ package
 		 */
 		public function main():void
 		{
-			invitationNames = new Array();
-			
 			sysApi.addHook(ChatSendPreInit, onChatSendPreInit);
 			sysApi.addHook(GameStart, onGameStart);
 		}
@@ -85,26 +75,6 @@ package
 		{
 			//modMultiAccountManager.unregister(sendIdKey);
 			//modMultiAccountManager.unregister(receiveIdKey);
-		}
-		
-		/**
-		 * Return the pseudo of a character who can be invited.
-		 * 
-		 * @return A character's pseudo
-		 */
-		public function getInvitationName():String
-		{
-			return invitationNames.pop();
-		}
-		
-		/**
-		 * Send PartyInvitation action.
-		 * 
-		 * @return A character's pseudo
-		 */
-		public function sendInvitation(playerName:String):void
-		{
-			sysApi.sendAction(new PartyInvitation(playerName))
 		}
 		
 		/**
@@ -139,12 +109,17 @@ package
 			if (partyApi.isInParty(playerId))
 				return;
 			
-			invitationNames.push(playerName);
-			
-			if (uiApi.getUi(invitationUiName) == null)
+			var sendInvitation:Function = function():void
 			{
-				uiApi.loadUi(invitationUiName, invitationUiName, this);
+				sysApi.sendAction(new PartyInvitation(playerName));
 			}
+			
+			modCommon.openPopup(
+				uiApi.getText("ui.exchange.exchangeRequest"),
+				"Inviter : " + playerName,
+				[uiApi.getText("ui.common.yes"), uiApi.getText("ui.common.no")],
+				[sendInvitation, null],
+				sendInvitation);
 		}
 		
 		//::///////////////////////////////////////////////////////////
