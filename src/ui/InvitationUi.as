@@ -6,6 +6,7 @@ package ui
 	import d2components.ButtonContainer;
 	import d2components.GraphicContainer;
 	import d2components.Label;
+	import d2enums.ComponentHookList;
 	
 	/**
 	 * Invitation popup.
@@ -68,8 +69,8 @@ package ui
 			
 			lbl_pseudo.text = playerName;
 			
-			uiApi.addComponentHook(btn_ok, "onRelease");
-			uiApi.addComponentHook(btn_no, "onRelease");
+			uiApi.addComponentHook(btn_ok, ComponentHookList.ON_RELEASE);
+			uiApi.addComponentHook(btn_no, ComponentHookList.ON_RELEASE);
 			
 			uiApi.addShortcutHook("validUi", onShortcut);
 			uiApi.addShortcutHook("closeUi", onShortcut);
