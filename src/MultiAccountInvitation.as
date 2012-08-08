@@ -36,7 +36,7 @@ package
 		/**
 		 * @private
 		 */
-		public var uiApi:UiApi; // loadUi
+		public var uiApi:UiApi; // getText
 		
 		// Components
 		[Module(name = "MultiAccountManager")]
