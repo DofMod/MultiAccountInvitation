@@ -52,8 +52,8 @@ package
 		public var modCommon:Object;
 		
 		// Constants
-		private const sendIdKey:String = "mai_sendId";
-		private const receiveIdKey:String = "mai_receiveId";
+		private static const SENDID_KEY:String = "mai_sendId";
+		private static const RECEIVEID_KEY:String = "mai_receiveId";
 		
 		//::///////////////////////////////////////////////////////////
 		//::// Methods
@@ -90,7 +90,7 @@ package
 		{
 			modMultiAccountManager.send(
 				originIndex,
-				receiveIdKey,
+				RECEIVEID_KEY,
 				playerApi.getPlayedCharacterInfo().id,
 				playerApi.getPlayedCharacterInfo().name);
 		}
@@ -131,8 +131,8 @@ package
 		 */
 		private function onGameStart():void
 		{
-			modMultiAccountManager.register(sendIdKey, this.sendId);
-			modMultiAccountManager.register(receiveIdKey, this.receiveId);
+			modMultiAccountManager.register(SENDID_KEY, this.sendId);
+			modMultiAccountManager.register(RECEIVEID_KEY, this.receiveId);
 		}
 		
 		/**
@@ -146,7 +146,7 @@ package
 			if (message == "/invitemulti")
 			{
 				modMultiAccountManager.sendOther(
-					sendIdKey,
+					SENDID_KEY,
 					modMultiAccountManager.getIndex());
 			}
 		}
